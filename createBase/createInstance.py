@@ -1,7 +1,10 @@
 import numpy as np
 
-def CreateInstance(numJobs, numMachine):
-    instance = np.random.randint(10, 100, size=[numJobs, numMachine])
-    np.savetxt('/Users/alafateabulimiti/PycharmProjects/PRD/instances/new.csv', instance,fmt ='%d,%d', delimiter=',')
-    return instance
 
+def CreateInstance(numJobs, numMachine):
+    ptime = np.random.randint(10, 100, size=[numJobs, numMachine])
+    ids = np.arange(1, numJobs + 1, 1, dtype=np.int64).reshape(numJobs, 1)
+    instance = np.append(ids, ptime, axis=1)
+    np.savetxt('/Users/alafateabulimiti/PycharmProjects/PRD/instances/data.txt', instance, fmt='%d %d %d',
+               delimiter=' ')
+    return instance
