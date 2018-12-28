@@ -43,9 +43,9 @@ get_sequence(IloCplex cpx, IloIntVarArray x[], const vector<Job>& N, vector<int>
 bool
 search(IloCplex cpx, IloIntVarArray x[], vector<Job>& N, vector<int>& S, int&bestobj, double timelim = 1e20)
 {
-	const int wsize = 18;// alafate
+	//const int wsize = 18;
 	//int wsize;
-	const int max_Nr_win = N.size() - wsize;
+	//const int max_Nr_win = N.size() - wsize;
 
 	vector<bool> used(N.size());
 
@@ -56,48 +56,118 @@ search(IloCplex cpx, IloIntVarArray x[], vector<Job>& N, vector<int>& S, int&bes
 
 	while (!done) {
 		done = true;
-		for (int i = 0; i < max_Nr_win && done; ++i)
-			done = done && used[i];
-		if (!done) {
-			int wstart;
-			list<pair<int, int> > L;
-			do {
-				wstart = rand() % max_Nr_win;
-			} while (used[wstart]);
-			       
-			for (int i = 0; i < N.size(); i++) {
-					if (i<wstart || i>wstart + wsize - 1) {
+		for (int j = 6; j < 18 || j < N.size(); j++) {
+			int max_Nr_win = N.size() - j;
+			for (int i = 0; i < max_Nr_win && done; ++i)
+				done = done && used[i];
+			cout << done << endl;
+			if (!done) {
+				int wstart;
+				list<pair<int, int> > L;
+				do {
+					wstart = rand() % max_Nr_win;
+				} while (used[wstart]);
+
+				for (int i = 0; i < N.size(); i++) {
+					if (i<wstart || i>wstart + j - 1) {
 						x[S[i]][i].setLB(1);
 						x[S[i]][i].setUB(1);
 						L.push_back(pair<int, int>(S[i], i));
 					}
-			}
-			clock_t sp_start = clock();
-			cpx.solve();
-			sp_time = ((double)(clock() - sp_start) / CLOCKS_PER_SEC);
-			avg_sp_time += sp_time;
-			sp_cnt++;
-			if (sp_time > max_sp_time) {
-				max_sp_time = sp_time;
-			}
-			if (cpx.getObjValue() < bestobj) {
-				bestobj = (int)cpx.getObjValue();
-				get_sequence(cpx, x, N, S);
-				cout << "Improved to " << bestobj <<
-					" at time " << ((double)(clock() - start_time)) / CLOCKS_PER_SEC << endl;
-				fill(used.begin(), used.end(), false);
-			}
-			while (!L.empty()) {
-				x[L.front().first][L.front().second].setLB(0);
-				x[L.front().first][L.front().second].setUB(1);
-				L.pop_front();
+				}
+
+				clock_t sp_start = clock();
+				cpx.solve();
+				sp_time = ((double)(clock() - sp_start) / CLOCKS_PER_SEC);
+				avg_sp_time += sp_time;
+				sp_cnt++;
+				if (sp_time > max_sp_time) {
+					max_sp_time = sp_time;
+				}
+				if (cpx.getObjValue() < bestobj) {
+					bestobj = (int)cpx.getObjValue();
+					get_sequence(cpx, x, N, S);
+					cout << "Improved to " << bestobj <<
+						" at time " << ((double)(clock() - start_time)) / CLOCKS_PER_SEC << endl;
+					fill(used.begin(), used.end(), false);
+				}
+				while (!L.empty()) {
+					x[L.front().first][L.front().second].setLB(0);
+					x[L.front().first][L.front().second].setUB(1);
+					L.pop_front();
+				}
 			}
 		}
+		
+		
 		clock_t stop_time = clock();
 		if (((stop_time - start_time) / CLOCKS_PER_SEC) > timelim)
 			break;
 	}
 }
+
+//bool search(IloCplex cpx, IloIntVarArray x[], vector<Job> &N, vector<int> &S, int &bestobj, double timelim = 1e20)
+//{
+//	const int wsize = 12;
+//	const int max_Nr_win = N.size() - wsize;
+//
+//	vector<bool> used(N.size());
+//
+//	bool done = false;
+//	cout << "initial=" << bestobj << endl;
+//
+//	clock_t start_time = clock();
+//
+//	while (!done)
+//	{
+//		done = true;
+//		for (int i = 0; i < max_Nr_win && done; ++i)
+//			done = done && used[i];
+//		if (!done)
+//		{
+//			int wstart;
+//			list<pair<int, int>> L;
+//			do
+//			{
+//				wstart = rand() % max_Nr_win;
+//			} while (used[wstart]);
+//			for (int i = 0; i < N.size(); i++)
+//			{
+//				if (i < wstart || i > wstart + wsize - 1)
+//				{
+//					x[S[i]][i].setLB(1);
+//					x[S[i]][i].setUB(1);
+//					L.push_back(pair<int, int>(S[i], i));
+//				}
+//			}
+//			clock_t sp_start = clock();
+//			cpx.solve();
+//			sp_time = ((double)(clock() - sp_start) / CLOCKS_PER_SEC);
+//			avg_sp_time += sp_time;
+//			sp_cnt++;
+//			if (sp_time > max_sp_time)
+//			{
+//				max_sp_time = sp_time;
+//			}
+//			if (cpx.getObjValue() < bestobj)
+//			{
+//				bestobj = (int)cpx.getObjValue();
+//				get_sequence(cpx, x, N, S);
+//				cout << "Improved to " << bestobj << " at time " << ((double)(clock() - start_time)) / CLOCKS_PER_SEC << endl;
+//				fill(used.begin(), used.end(), false);
+//			}
+//			while (!L.empty())
+//			{
+//				x[L.front().first][L.front().second].setLB(0);
+//				x[L.front().first][L.front().second].setUB(1);
+//				L.pop_front();
+//			}
+//		}
+//		clock_t stop_time = clock();
+//		if (((stop_time - start_time) / CLOCKS_PER_SEC) > timelim)
+//			break;
+//	}
+//}
 
 void
 read_jobs(const char *fname, vector<Job>& N)
