@@ -13,6 +13,7 @@ ILOSTLBEGIN
 
 #define MAX_JOBS 600
 
+
 double sp_time;
 double avg_sp_time = 0;
 double max_sp_time = 0;
@@ -20,6 +21,11 @@ double max_sp_time = 0;
 int initial_obj;
 
 int sp_cnt = 0;
+
+std::vector< int > r_arr;
+std::vector< int > h_arr;
+
+
 
 struct Job {
 	int id;
@@ -54,22 +60,23 @@ search(IloCplex cpx, IloIntVarArray x[], vector<Job>& N, vector<int>& S, int&bes
 
 	clock_t start_time = clock();
 
-	while (!done) {
-		done = true;
+	//while (!done) {
+		//done = true;
 		for (int j = 6; j < 18 || j < N.size(); j++) {
 			int max_Nr_win = N.size() - j;
-			for (int i = 0; i < max_Nr_win && done; ++i)
-				done = done && used[i];
-			cout << done << endl;
-			if (!done) {
-				int wstart;
+			for (int s = 0; s < max_Nr_win; s++) {
+				//for (int i = 0; i < max_Nr_win && done; ++i)
+					//done = done && used[i];
+				//cout << done << endl;
+				//if (!done) {
+					//int wstart;
 				list<pair<int, int> > L;
-				do {
-					wstart = rand() % max_Nr_win;
-				} while (used[wstart]);
+				//do {
+					//wstart = rand() % max_Nr_win;
+				//} while (used[wstart]);
 
 				for (int i = 0; i < N.size(); i++) {
-					if (i<wstart || i>wstart + j - 1) {
+					if (i < s || i > s + j - 1) {
 						x[S[i]][i].setLB(1);
 						x[S[i]][i].setUB(1);
 						L.push_back(pair<int, int>(S[i], i));
@@ -84,26 +91,31 @@ search(IloCplex cpx, IloIntVarArray x[], vector<Job>& N, vector<int>& S, int&bes
 				if (sp_time > max_sp_time) {
 					max_sp_time = sp_time;
 				}
+				
 				if (cpx.getObjValue() < bestobj) {
 					bestobj = (int)cpx.getObjValue();
 					get_sequence(cpx, x, N, S);
 					cout << "Improved to " << bestobj <<
 						" at time " << ((double)(clock() - start_time)) / CLOCKS_PER_SEC << endl;
 					fill(used.begin(), used.end(), false);
+					r_arr.push_back(s);
+					h_arr.push_back(j);
 				}
 				while (!L.empty()) {
 					x[L.front().first][L.front().second].setLB(0);
 					x[L.front().first][L.front().second].setUB(1);
 					L.pop_front();
 				}
+				//}
 			}
+			clock_t stop_time = clock();
+			if (((stop_time - start_time) / CLOCKS_PER_SEC) > timelim)
+				break;
 		}
 		
 		
-		clock_t stop_time = clock();
-		if (((stop_time - start_time) / CLOCKS_PER_SEC) > timelim)
-			break;
-	}
+		
+		//}
 }
 
 //bool search(IloCplex cpx, IloIntVarArray x[], vector<Job> &N, vector<int> &S, int &bestobj, double timelim = 1e20)
@@ -344,6 +356,11 @@ int main(int argc, char *argv[])
 			}
 			ofs << endl;
 		}
+		for (auto i = r_arr.begin(); i != r_arr.end(); ++i)
+			std::cout << *i << ' ';
+		cout << "\n" << endl;
+		for (auto i = h_arr.begin(); i != h_arr.end(); ++i)
+			std::cout << *i << ' ';
 	}
 
 	catch (const char *s) {
@@ -359,6 +376,6 @@ int main(int argc, char *argv[])
 	  res=EXIT_FAILURE;
 	}
 	 */
-	Sleep(10000);
+	Sleep(10000000);
 	return res;
 }
