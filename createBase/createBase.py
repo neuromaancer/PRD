@@ -1,6 +1,7 @@
 import numpy as np
 import os, sys
 import shutil
+from createBase.compareSeq import compareSeq
 
 
 def createOptSeq(filePath):
@@ -23,3 +24,9 @@ def createRbsFile(seqFile, numIt):
 
 
 createRbsFile('data.txt.seq', 2)
+
+
+def calculateI(baseSeqFile, targetSeqFile):
+    _, _, baseFO, targetFO = compareSeq(baseSeqFile, targetSeqFile)
+    imporvement = 1 - (targetFO / baseFO)
+    return imporvement
