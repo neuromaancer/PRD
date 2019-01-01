@@ -1,5 +1,5 @@
 import numpy as np
-import os
+import os, sys
 import shutil
 
 
@@ -8,6 +8,18 @@ def createOptSeq(filePath):
     tlim = 10000  # limited time for the matheristic program
     os.system("createRbsInstance.sh" + " " + filePath + " " + str(seed) + " " + str(tlim))
 
-def createRbsfile(seqFile, numIt):
-    shutil.copy(seqFile, str(numIt) + '_' + seqFile[:-3] + "rbs")
 
+def createRbsFile(seqFile, numIt):
+    newFile = 'It_' + str(numIt) + '_' + seqFile[:-3] + "rbs"
+    shutil.copy(seqFile, newFile)
+    r = open(newFile)
+    lines = r.readlines()
+    r.close()
+    w = open(newFile, 'w')
+    w.writelines([item for item in lines[:-1]])
+    w.close()
+
+    return newFile
+
+
+createRbsFile('data.txt.seq', 2)
