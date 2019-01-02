@@ -2,19 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="50e14218-a52f-4124-b13d-c6e966090326" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/createBase/createBase.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Matho/RBS_FLOWSHOP.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Matho/data.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Matho/data.txt.rbs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Matho/data.txt.seq" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Matho/out.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Matho/pippo.lp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Matho/plnub.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Matho/ub.rep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/createBase/compareSeq.py" beforeDir="false" afterPath="$PROJECT_DIR$/createBase/compareSeq.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/createBase/createInstance.py" beforeDir="false" afterPath="$PROJECT_DIR$/createBase/createInstance.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/instances/data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/instances/data.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/createBase/createBase.py" beforeDir="false" afterPath="$PROJECT_DIR$/createBase/createBase.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,14 +12,15 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/PRD$createInstance.coverage" NAME="createInstance Coverage Results" MODIFIED="1546007175164" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/createBase" />
+    <SUITE FILE_PATH="coverage/PRD$createBase.coverage" NAME="createBase Coverage Results" MODIFIED="1546362546692" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/createBase" />
+    <SUITE FILE_PATH="coverage/PRD$createInstance.coverage" NAME="createInstance Coverage Results" MODIFIED="1546082720248" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/createBase" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/createBase/createInstance.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="494">
+            <state relative-caret-position="337">
               <caret line="20" selection-start-line="20" selection-end-line="20" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
@@ -42,8 +32,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/createBase/compareSeq.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="11" column="75" selection-start-line="11" selection-start-column="75" selection-end-line="11" selection-end-column="75" />
+            <state relative-caret-position="728">
+              <caret line="28" column="33" lean-forward="true" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -51,11 +41,34 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/createBase/createBase.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="8" column="3" selection-start-line="8" selection-start-column="3" selection-end-line="8" selection-end-column="3" />
+            <state relative-caret-position="295">
+              <caret line="31" column="22" selection-start-line="31" selection-start-column="22" selection-end-line="31" selection-end-column="22" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/createBase/data.txt.rbs">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/createBase/data.txt.seq">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="26">
+              <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/nn/PrtNet.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1222">
+              <caret line="52" column="27" selection-start-line="52" selection-start-column="27" selection-end-line="52" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -69,6 +82,11 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>time_distributed_dense</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -78,6 +96,8 @@
         <option value="$PROJECT_DIR$/createBase/createInstance.py" />
         <option value="$PROJECT_DIR$/createBase/compareSeq.py" />
         <option value="$PROJECT_DIR$/instances/createRbsInstance.sh" />
+        <option value="$PROJECT_DIR$/nn/PrtNet.py" />
+        <option value="$PROJECT_DIR$/createBase/data.txt.seq" />
         <option value="$PROJECT_DIR$/createBase/createBase.py" />
       </list>
     </option>
@@ -109,7 +129,7 @@
             <path>
               <item name="PRD" type="b2602c69:ProjectViewProjectNode" />
               <item name="PRD" type="462c0819:PsiDirectoryNode" />
-              <item name="instances" type="462c0819:PsiDirectoryNode" />
+              <item name="nn" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -123,7 +143,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="Errors" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -137,7 +157,29 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.createBase">
+    <configuration name="createBase" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="PRD" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/createBase" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/createBase/createBase.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="createInstance" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="PRD" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -162,6 +204,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.createBase" />
         <item itemvalue="Python.createInstance" />
       </list>
     </recent_temporary>
@@ -181,7 +224,10 @@
       <workItem from="1545377145913" duration="10000" />
       <workItem from="1546005768887" duration="1570000" />
       <workItem from="1546009895695" duration="1135000" />
-      <workItem from="1546011442026" duration="785000" />
+      <workItem from="1546011442026" duration="2177000" />
+      <workItem from="1546092499038" duration="23000" />
+      <workItem from="1546092568829" duration="1210000" />
+      <workItem from="1546360973992" duration="1517000" />
     </task>
     <task id="LOCAL-00001" summary="init et createInstance">
       <created>1544715372889</created>
@@ -204,22 +250,50 @@
       <option name="project" value="LOCAL" />
       <updated>1545326230991</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="create 20 instances of 100 jobs in the instance folder">
+      <created>1546012483841</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1546012483841</updated>
+    </task>
+    <task id="LOCAL-00005" summary="createRbsFile: it can convert seq file generated by matho to the rbs file, so that we can reuse this file to 2ed matho.">
+      <created>1546082853375</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1546082853375</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Basic model of prtNet, it needs to improve.">
+      <created>1546093992338</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1546093992338</updated>
+    </task>
+    <task id="LOCAL-00007" summary="add one function : createRbsFile, this function can create one rbs file for the 2rd iteration of the algorithm. it can delete the r and h value, and rename the file .rbs, so that it can be the input in the matheuristic algo">
+      <created>1546362760097</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1546362760097</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8404000" />
+    <option name="totallyTimeSpent" value="12546000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2584814" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27059773" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32913166" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32913166" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -246,7 +320,11 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init et createInstance" />
     <MESSAGE value="modificaiton of fonction : CreateInstance" />
-    <option name="LAST_COMMIT_MESSAGE" value="modificaiton of fonction : CreateInstance" />
+    <MESSAGE value="create 20 instances of 100 jobs in the instance folder" />
+    <MESSAGE value="createRbsFile: it can convert seq file generated by matho to the rbs file, so that we can reuse this file to 2ed matho." />
+    <MESSAGE value="Basic model of prtNet, it needs to improve." />
+    <MESSAGE value="add one function : createRbsFile, this function can create one rbs file for the 2rd iteration of the algorithm. it can delete the r and h value, and rename the file .rbs, so that it can be the input in the matheuristic algo" />
+    <option name="LAST_COMMIT_MESSAGE" value="add one function : createRbsFile, this function can create one rbs file for the 2rd iteration of the algorithm. it can delete the r and h value, and rename the file .rbs, so that it can be the input in the matheuristic algo" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/numpy/lib/npyio.py">
@@ -273,23 +351,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/createBase/createInstance.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/createBase/compareSeq.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="11" column="75" selection-start-line="11" selection-start-column="75" selection-end-line="11" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/instances/createRbsInstance.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="52">
@@ -304,10 +365,56 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/instances/100jobs_15_28-12-2018.txt.rbs">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/instances/100jobs_16_28-12-2018.txt.rbs">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nn/PrtNet.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1222">
+          <caret line="52" column="27" selection-start-line="52" selection-start-column="27" selection-end-line="52" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/createBase/data.txt.seq">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26">
+          <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/createBase/data.txt.rbs">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/createBase/2_data.txt.rbs">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/createBase/It_2_data.txt.rbs">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/createBase/createInstance.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="337">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/createBase/compareSeq.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="728">
+          <caret line="28" column="33" lean-forward="true" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/createBase/createBase.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="8" column="3" selection-start-line="8" selection-start-column="3" selection-end-line="8" selection-end-column="3" />
+        <state relative-caret-position="295">
+          <caret line="31" column="22" selection-start-line="31" selection-start-column="22" selection-end-line="31" selection-end-column="22" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
