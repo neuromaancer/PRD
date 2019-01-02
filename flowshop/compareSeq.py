@@ -28,5 +28,3 @@ def compareSeq(baseFileName, targetFileName):
 
     return r, h, baseFO, targetFO
 
-print(compareSeq('data.txt.rbs','data.txt.seq'))
-
