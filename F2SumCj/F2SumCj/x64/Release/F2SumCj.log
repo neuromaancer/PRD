@@ -14,6 +14,9 @@ bound.obj : warning LNK4006: "bool __cdecl search(class IloCplex,class IloIntVar
 bound.obj : warning LNK4006: "void __cdecl get_sequence(class IloCplex,class IloIntVarArray * const,class std::vector<struct Job,class std::allocator<struct Job> > const &,class std::vector<int,class std::allocator<int> > &)" (?get_sequence@@YAXVIloCplex@@QEAVIloIntVarArray@@AEBV?$vector@UJob@@V?$allocator@UJob@@@std@@@std@@AEAV?$vector@HV?$allocator@H@std@@@4@@Z) already defined in bound.obj; second definition ignored
 C:\Users\Alafate ABULIMITI\Documents\PRD\F2SumCj\x64\Release\F2SumCj.exe : warning LNK4088: image being generated due to /FORCE option; image may not run
   Generating code
+  0 of 556 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
 concert.lib(ilosstructi.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(ilosstructi.obj)' or at 'C:\Users\Alafate ABULIMITI\Documents\PRD\F2SumCj\x64\Release\concert.pdb'; linking object as if no debug info
 concert.lib(ilohash.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(ilohash.obj)' or at 'C:\Users\Alafate ABULIMITI\Documents\PRD\F2SumCj\x64\Release\concert.pdb'; linking object as if no debug info
@@ -52,7 +55,4 @@ concert.lib(evalkernel.obj) : warning LNK4099: PDB 'concert.pdb' was not found w
 concert.lib(evaluator.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(evaluator.obj)' or at 'C:\Users\Alafate ABULIMITI\Documents\PRD\F2SumCj\x64\Release\concert.pdb'; linking object as if no debug info
 concert.lib(evalexpand.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(evalexpand.obj)' or at 'C:\Users\Alafate ABULIMITI\Documents\PRD\F2SumCj\x64\Release\concert.pdb'; linking object as if no debug info
 concert.lib(strtod.obj) : warning LNK4099: PDB 'concert.pdb' was not found with 'concert.lib(strtod.obj)' or at 'C:\Users\Alafate ABULIMITI\Documents\PRD\F2SumCj\x64\Release\concert.pdb'; linking object as if no debug info
-  1 of 556 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
   F2SumCj.vcxproj -> C:\Users\Alafate ABULIMITI\Documents\PRD\F2SumCj\x64\Release\F2SumCj.exe
