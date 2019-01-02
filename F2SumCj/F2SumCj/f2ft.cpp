@@ -354,6 +354,9 @@ int main(int argc, char *argv[])
 			for (int i = 0; i < N.size(); i++) {
 				ofs << S[i] << " ";
 			}
+			ofs << "\n";
+			ofs << r_arr[r_arr.size() - 1] <<" ";
+			ofs << h_arr[h_arr.size() - 1] << " ";
 			ofs << endl;
 		}
 		for (auto i = r_arr.begin(); i != r_arr.end(); ++i)
@@ -376,6 +379,5 @@ int main(int argc, char *argv[])
 	  res=EXIT_FAILURE;
 	}
 	 */
-	Sleep(10000000);
 	return res;
 }
