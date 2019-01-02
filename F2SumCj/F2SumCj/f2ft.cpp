@@ -62,7 +62,7 @@ search(IloCplex cpx, IloIntVarArray x[], vector<Job>& N, vector<int>& S, int&bes
 
 	//while (!done) {
 		//done = true;
-		for (int j = 6; j < 18 || j < N.size(); j++) {
+		for (int j = 6; j < 18 && j < N.size(); j++) {
 			int max_Nr_win = N.size() - j;
 			for (int s = 0; s < max_Nr_win; s++) {
 				//for (int i = 0; i < max_Nr_win && done; ++i)
