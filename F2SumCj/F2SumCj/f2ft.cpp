@@ -379,5 +379,6 @@ int main(int argc, char *argv[])
 	  res=EXIT_FAILURE;
 	}
 	 */
+	Sleep(100000);
 	return res;
 }
