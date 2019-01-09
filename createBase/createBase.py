@@ -18,13 +18,14 @@ def exeTime(func):
     return newFunc
 
 
-def createOptSeq(filePath, seed, tlim):
+def createOptSeqOSX(filePath, seed, tlim):
     os.system("/Users/alafateabulimiti/PycharmProjects/PRD/createBase/F2sumCj.sh" + " " + filePath + " " + str(
         seed) + " " + str(tlim))
     return filePath + ".seq"
 
 
-@exeTime
+
+
 def createRbsFile(seqFile, numIt):
     if seqFile[0:2] == "It":
         newFile = 'It_' + str(numIt) + '_' + seqFile[:-3][5:] + "rbs"
@@ -94,7 +95,7 @@ def generateBaseForOneIns(exTime, numIt, instanceFile):
     initFO = extractFOfromFile(inirbsFile)
     newinstancefile = instanceFile
     while end < exTime and num < numIt:
-        seqfile = createOptSeq(newinstancefile, 3, 10)
+        seqfile = createOptSeqOSX(newinstancefile, 3, 200)
         rbsfile = createRbsFile(seqfile, num)
         optFO = extractFOfromFile(seqfile)
         rbsFO = extractFOfromFile(rbsfile)
