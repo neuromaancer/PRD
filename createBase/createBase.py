@@ -1,8 +1,5 @@
 import numpy as np
-import os, sys
-import shutil
-import time
-import linecache
+import os, sys, linecache, shutil, time, csv
 from flowshop import compareSeq
 
 
@@ -24,6 +21,10 @@ def createOptSeqOSX(filePath, seed, tlim):
     return filePath + ".seq"
 
 
+def createOptSeqWin(filePath, seed, tlim):
+    os.system(r"C:\Users\Alafat~1\Documents\PRD\Matho\F2SumCj.exe" + ' ' + filePath + " " + str(
+        seed) + " " + str(tlim))
+    return filePath + ".seq"
 
 
 def createRbsFile(seqFile, numIt):
@@ -87,6 +88,22 @@ def extractRH(seqfile):
     return r, h
 
 
+def extractSeq(file):
+    f = open(file)
+    seq = f.readline().split(' ')
+    seq = seq[2:-1]
+    return seq
+
+
+def extractSeqWithIns(file, instanceFile):
+    seq = extractSeq(file)
+    seqWithIns = []
+    for i in seq:
+        ptime = linecache.getline(instanceFile, int(i) + 1).split(" ")
+        seqWithIns.append([int(ptime[1]), int(ptime[2][:-1])])
+    return seqWithIns
+
+
 def generateBaseForOneIns(exTime, numIt, instanceFile):
     begin = time.clock()
     end = 0
@@ -95,24 +112,34 @@ def generateBaseForOneIns(exTime, numIt, instanceFile):
     initFO = extractFOfromFile(inirbsFile)
     newinstancefile = instanceFile
     while end < exTime and num < numIt:
-        seqfile = createOptSeqOSX(newinstancefile, 3, 200)
-        rbsfile = createRbsFile(seqfile, num)
-        optFO = extractFOfromFile(seqfile)
-        rbsFO = extractFOfromFile(rbsfile)
-        I = calculateI(initFO, rbsFO)
-        Iprime = calculateI(initFO, optFO)
-        r, h = extractRH(seqfile)
-        newinstancefile = createtxtFile(rbsfile)
-        print(r, h, I, Iprime)
-        current = time.clock()
-        end = current - begin
-        num = num + 1
+        seqfile = createOptSeqWin(newinstancefile, 3, 200)
+        if os.stat(seqfile).st_size == 0:
+            break
+        else:
+            rbsfile = createRbsFile(seqfile, num)
+            optFO = extractFOfromFile(seqfile)
+            rbsFO = extractFOfromFile(rbsfile)
+            I = calculateI(initFO, rbsFO)
+            Iprime = calculateI(initFO, optFO)
+            r, h = extractRH(seqfile)
+            S = extractSeqWithIns(rbsfile, newinstancefile)
+            Sprime = extractSeqWithIns(seqfile, newinstancefile)
+            with open("base.csv", "w") as csvfile:
+                writer = csv.writer(csvfile)
+                writer.writerow([S, Sprime, r, h, I, Iprime])
+            newinstancefile = createtxtFile(rbsfile)
+            print(r, h, I, Iprime)
+            current = time.clock()
+            end = current - begin
+            num = num + 1
 
 
 if __name__ == "__main__":
-    # generateBase(1000, 1, '/Users/alafateabulimiti/PycharmProjects/PRD/createBase')
     # createOptSeq("/Users/alafateabulimiti/PycharmProjects/PRD/createBase/data.txt",3,10)
     # createtxtFile("It_2_data.txt.rbs")
-    # createOptSeq("data.txt", 3, 100)
+    # createOptSeqWin("It_1_data.txt", 3, 100)
     generateBaseForOneIns(300, 3, "data.txt")
     # createRbsFile("It_1_data.txt.seq", 2)
+    # extractSeq("data.txt.rbs")
+    # seq = extractSeqWithIns("It_1_data.txt.rbs", "It_1_data.txt")
+    # print(len(seq))
