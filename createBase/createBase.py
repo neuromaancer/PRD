@@ -133,13 +133,19 @@ def generateBaseForOneIns(exTime, numIt, instanceFile):
             end = current - begin
             num = num + 1
 
+def generationBase(instancePath):
+    files = os.listdir(instancePath)
+    for file in files:
+        if file.endswith(".txt"):
+            generateBaseForOneIns(300, 15,file)
 
 if __name__ == "__main__":
     # createOptSeq("/Users/alafateabulimiti/PycharmProjects/PRD/createBase/data.txt",3,10)
     # createtxtFile("It_2_data.txt.rbs")
     # createOptSeqWin("It_1_data.txt", 3, 100)
-    generateBaseForOneIns(300, 3, "data.txt")
+    #generateBaseForOneIns(300, 3, "data.txt")
     # createRbsFile("It_1_data.txt.seq", 2)
     # extractSeq("data.txt.rbs")
     # seq = extractSeqWithIns("It_1_data.txt.rbs", "It_1_data.txt")
     # print(len(seq))
+    generationBase(r"C:\Users\Alafat~1\Documents\PRD\createBase")
