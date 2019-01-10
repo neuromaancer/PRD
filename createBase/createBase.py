@@ -1,5 +1,5 @@
 import numpy as np
-import os, sys, linecache, shutil, time, csv
+import os,linecache, shutil, time, csv
 from flowshop import compareSeq
 
 
@@ -22,7 +22,9 @@ def createOptSeqOSX(filePath, seed, tlim):
 
 
 def createOptSeqWin(filePath, seed, tlim):
-    os.system(r"C:\Users\Alafat~1\Documents\PRD\Matho\F2SumCj.exe" + ' ' + filePath + " " + str(
+    # os.system(r"C:\Users\Alafat~1\Documents\PRD\Matho\F2SumCj.exe" + ' ' + filePath + " " + str(
+    #     seed) + " " + str(tlim))
+    os.system(r"C:\Users\21606250t\PycharmProjects\PRD\Matho\F2SumCj.exe" + ' ' + filePath + " " + str(
         seed) + " " + str(tlim))
     return filePath + ".seq"
 
@@ -124,11 +126,10 @@ def generateBaseForOneIns(exTime, numIt, instanceFile):
             r, h = extractRH(seqfile)
             S = extractSeqWithIns(rbsfile, newinstancefile)
             Sprime = extractSeqWithIns(seqfile, newinstancefile)
-            with open("base.csv", "w") as csvfile:
+            with open("base.csv", "a+",newline='') as csvfile:
                 writer = csv.writer(csvfile)
                 writer.writerow([S, Sprime, r, h, I, Iprime])
             newinstancefile = createtxtFile(rbsfile)
-            print(r, h, I, Iprime)
             current = time.clock()
             end = current - begin
             num = num + 1
@@ -148,4 +149,4 @@ if __name__ == "__main__":
     # extractSeq("data.txt.rbs")
     # seq = extractSeqWithIns("It_1_data.txt.rbs", "It_1_data.txt")
     # print(len(seq))
-    generationBase(r"C:\Users\Alafat~1\Documents\PRD\createBase")
+    generationBase(r"C:\Users\21606250t\PycharmProjects\PRD\createBase")
