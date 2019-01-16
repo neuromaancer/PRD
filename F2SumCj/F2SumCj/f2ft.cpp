@@ -19,22 +19,19 @@ double avg_sp_time = 0;
 double max_sp_time = 0;
 
 int initial_obj;
+int init_FO;
 
 int sp_cnt = 0;
 
 std::vector< int > r_arr;
 std::vector< int > h_arr;
 
-
-
 struct Job {
 	int id;
 	int ptime[2];
 };
 
-
-void
-get_sequence(IloCplex cpx, IloIntVarArray x[], const vector<Job>& N, vector<int>& S)
+vector<int> get_sequence(IloCplex cpx, IloIntVarArray x[], const vector<Job>& N, vector<int>& S)
 {
 	for (int i = 0; i < N.size(); ++i) {
 		for (int j = 0; j < N.size(); ++j) {
@@ -43,37 +40,70 @@ get_sequence(IloCplex cpx, IloIntVarArray x[], const vector<Job>& N, vector<int>
 			}
 		}
 	}
+	return S;
+}
+
+vector<vector<int>> get_S_with_ptime(const vector<Job>& N, vector<int>& S) {
+	//Sprime.clear()
+	vector<vector<int>> Sptime(N.size(), vector<int>(2, 0));
+	for (int j = 0; j < N.size(); ++j) {
+		Sptime[j][0] = N[S[j]].ptime[0];
+		Sptime[j][1] = N[S[j]].ptime[1];
+	}
+	return Sptime;
+}
+
+float calculateI(float baseFO, float targetFO) {
+	float improvement = 1 - (targetFO / baseFO);
+	return improvement;
+}
+
+string printVec(vector<vector<int>> vect) {
+	vector<int> temp_vect(vect.size());
+	stringstream s;
+	s << "\"[";
+	for (vector<vector<int>>::iterator ite = vect.begin(); ite != vect.end(); ite++)
+	{
+		temp_vect = *ite;
+		s << "[" << temp_vect[0] << "," << temp_vect[1] << "],";
+	}
+	s << "]\"";
+	string ss = s.str();
+	return ss;
+}
+
+void writeCSV(vector<vector<int>>& S, vector<vector<int>>& Sprime, int r, int h, float I, float Iprime, string csv) {
+	std::ofstream myfile;
+	myfile.open(csv, ios::app);
+	string ss = printVec(S);
+	string ssp = printVec(Sprime);
+	myfile << ss << "," << ssp << "," << r << "," << h << "," << I << "," << Iprime << "\n";
+	myfile.close();
 }
 
 
 bool
-search(IloCplex cpx, IloIntVarArray x[], vector<Job>& N, vector<int>& S, int&bestobj, double timelim = 1e20)
+search(IloCplex cpx, IloIntVarArray x[], vector<Job>& N, vector<int>& S, float&bestobj, double timelim = 1e20)
 {
-	//const int wsize = 18;
-	//int wsize;
-	//const int max_Nr_win = N.size() - wsize;
+	int iter = 0;
+	vector<vector<int>> S_origin(N.size(), vector<int>(2, 0));
+	vector<vector<int>> S_prime(N.size(), vector<int>(2, 0));
 
-	vector<bool> used(N.size());
+	while (iter < 15)
+	{
+		float rbs_FO = bestobj;
+		cout << "rbs_FO: " << rbs_FO<<"\n";
 
-	bool done = false;
-	cout << "initial=" << bestobj << endl;
+		S_origin = get_S_with_ptime(N, S);
+	
+		cout << "initial=" << bestobj << endl;
 
-	clock_t start_time = clock();
+		clock_t start_time = clock();
 
-	//while (!done) {
-		//done = true;
 		for (int j = 6; j < 18 && j < N.size(); j++) {
 			int max_Nr_win = N.size() - j;
 			for (int s = 0; s < max_Nr_win; s++) {
-				//for (int i = 0; i < max_Nr_win && done; ++i)
-					//done = done && used[i];
-				//cout << done << endl;
-				//if (!done) {
-					//int wstart;
 				list<pair<int, int> > L;
-				//do {
-					//wstart = rand() % max_Nr_win;
-				//} while (used[wstart]);
 
 				for (int i = 0; i < N.size(); i++) {
 					if (i < s || i > s + j - 1) {
@@ -91,13 +121,15 @@ search(IloCplex cpx, IloIntVarArray x[], vector<Job>& N, vector<int>& S, int&bes
 				if (sp_time > max_sp_time) {
 					max_sp_time = sp_time;
 				}
-				
+
 				if (cpx.getObjValue() < bestobj) {
-					bestobj = (int)cpx.getObjValue();
+					bestobj = cpx.getObjValue();
+					cout << "bestobj:--------" << bestobj<<endl;
 					get_sequence(cpx, x, N, S);
+					cout << "r :" << s << "\t" << "h: " << j << endl;
+					S_prime = get_S_with_ptime(N, S);
 					cout << "Improved to " << bestobj <<
 						" at time " << ((double)(clock() - start_time)) / CLOCKS_PER_SEC << endl;
-					fill(used.begin(), used.end(), false);
 					r_arr.push_back(s);
 					h_arr.push_back(j);
 				}
@@ -106,79 +138,120 @@ search(IloCplex cpx, IloIntVarArray x[], vector<Job>& N, vector<int>& S, int&bes
 					x[L.front().first][L.front().second].setUB(1);
 					L.pop_front();
 				}
-				//}
-			}
-			clock_t stop_time = clock();
-			if (((stop_time - start_time) / CLOCKS_PER_SEC) > timelim)
-				break;
+			}			
 		}
-		
-		
-		
-		//}
+		cout << "------------------------------------------------------------" << "\n";
+		cout << "r :" << r_arr[r_arr.size() - 1] << "\t" << "h: " << h_arr[h_arr.size() - 1] << endl;
+		//vector<int> Sprime = get_sequence(cpx, x, N, S);
+		//for (vector<int>::iterator ite = Sprime.begin(); ite != Sprime.end(); ite++)
+		//	cout << *ite << " ";
+		cout << "BestObj:------------------------" << bestobj << "\n";
+		cout << "init_FO:--------------------" << init_FO << "\n";
+		cout << "rbs_FO:----------------------" << rbs_FO << "\n";
+		cout << "------------------------------------------------------------" << "\n";
+		if (rbs_FO == bestobj) {
+			return 0;
+		}
+		if (rbs_FO != bestobj) {
+			float I = calculateI(float(init_FO), float(rbs_FO));
+			float Iprime = calculateI(float(init_FO), float(bestobj));
+			int r = r_arr[r_arr.size() - 1];
+			int h = h_arr[h_arr.size() - 1];
+
+			writeCSV(S_origin, S_prime, r, h, I, Iprime, "base.csv");
+		}
+	}
 }
 
-//bool search(IloCplex cpx, IloIntVarArray x[], vector<Job> &N, vector<int> &S, int &bestobj, double timelim = 1e20)
+//bool
+//search(IloCplex cpx, IloIntVarArray x[], vector<Job>& N, vector<int>& S, int&bestobj, double timelim)
 //{
-//	const int wsize = 12;
-//	const int max_Nr_win = N.size() - wsize;
-//
-//	vector<bool> used(N.size());
-//
-//	bool done = false;
-//	cout << "initial=" << bestobj << endl;
-//
-//	clock_t start_time = clock();
-//
-//	while (!done)
+//	int iter = 0;
+//	
+//	vector<vector<int>> S_origin(N.size(), vector<int>(2, 0));
+//	vector<vector<int>> S_prime(N.size(), vector<int>(2, 0));
+//	while (iter < 15)
 //	{
-//		done = true;
-//		for (int i = 0; i < max_Nr_win && done; ++i)
-//			done = done && used[i];
-//		if (!done)
-//		{
-//			int wstart;
-//			list<pair<int, int>> L;
-//			do
-//			{
-//				wstart = rand() % max_Nr_win;
-//			} while (used[wstart]);
-//			for (int i = 0; i < N.size(); i++)
-//			{
-//				if (i < wstart || i > wstart + wsize - 1)
-//				{
-//					x[S[i]][i].setLB(1);
-//					x[S[i]][i].setUB(1);
-//					L.push_back(pair<int, int>(S[i], i));
+//		int rbs_FO = bestobj;
+//		cout << "rbs_FO----------------: " << rbs_FO<<"\n";
+//
+//		
+//
+//		S_origin = get_S_with_ptime(N, S);
+//		cout << "initial=" << bestobj << endl;
+//		int n = 0;
+//		clock_t start_time = clock();                                                                                                                                                                                                                                                                
+//		int count = 0;                                                 
+//		for (int j = 6; j < 18 && j < N.size(); j++) {
+//			int max_Nr_win = N.size() - j;
+//			for (int s = 0; s < max_Nr_win; s++) {				
+//				list<pair<int, int> > L;
+//				for (int i = 0; i < N.size(); i++) {
+//					if (i < s || i > s + j - 1) {
+//						x[S[i]][i].setLB(1);
+//						x[S[i]][i].setUB(1);
+//						L.push_back(pair<int, int>(S[i], i));
+//					}
+//				} 
+//
+//				clock_t sp_start = clock();
+//				cpx.solve();
+//				count ++;
+//				cout << "times of cplex:" <<count<<"\t";
+//				sp_time = ((double)(clock() - sp_start) / CLOCKS_PER_SEC);
+//				avg_sp_time += sp_time;
+//				sp_cnt++;
+//				if (sp_time > max_sp_time) {
+//					max_sp_time = sp_time;
+//				}
+//
+//				if (cpx.getObjValue() < bestobj) {
+//					bestobj = cpx.getObjValue();
+//					cout << "r :" << s << "\t" << "h: " << j << endl;
+//					vector<int> Sprime = get_sequence(cpx, x, N, S);
+//					S_prime = get_S_with_ptime(N, S);
+//					for (vector<int>::iterator ite = Sprime.begin(); ite != Sprime.end(); ite++)
+//						cout << *ite << " ";
+//					cout << "Improved to " << bestobj <<
+//						" at time " << ((double)(clock() - start_time)) / CLOCKS_PER_SEC << endl;
+//					r_arr.push_back(s);
+//					h_arr.push_back(j);
+//					
+//				}
+//				while (!L.empty()) {
+//					x[L.front().first][L.front().second].setLB(0);
+//					x[L.front().first][L.front().second].setUB(1);
+//					L.pop_front();
 //				}
 //			}
-//			clock_t sp_start = clock();
-//			cpx.solve();
-//			sp_time = ((double)(clock() - sp_start) / CLOCKS_PER_SEC);
-//			avg_sp_time += sp_time;
-//			sp_cnt++;
-//			if (sp_time > max_sp_time)
-//			{
-//				max_sp_time = sp_time;
-//			}
-//			if (cpx.getObjValue() < bestobj)
-//			{
-//				bestobj = (int)cpx.getObjValue();
-//				get_sequence(cpx, x, N, S);
-//				cout << "Improved to " << bestobj << " at time " << ((double)(clock() - start_time)) / CLOCKS_PER_SEC << endl;
-//				fill(used.begin(), used.end(), false);
-//			}
-//			while (!L.empty())
-//			{
-//				x[L.front().first][L.front().second].setLB(0);
-//				x[L.front().first][L.front().second].setUB(1);
-//				L.pop_front();
-//			}
 //		}
-//		clock_t stop_time = clock();
-//		if (((stop_time - start_time) / CLOCKS_PER_SEC) > timelim)
-//			break;
+//
+//		cout << "------------------------------------------------------------" << "\n";
+//		cout << "r :" << r_arr[r_arr.size() - 1] << "\t" << "h: " << h_arr[h_arr.size() - 1] << endl;
+//		vector<int> Sprime = get_sequence(cpx, x, N, S);
+//		for (vector<int>::iterator ite = Sprime.begin(); ite != Sprime.end(); ite++)
+//			cout << *ite << " ";
+//		cout << "BestObj:------------------------" << bestobj << "\n";
+//		cout << "init_FO:--------------------" << init_FO << "\n";
+//		cout << "rbs_FO:----------------------" << rbs_FO << "\n";
+//		cout << "------------------------------------------------------------" << "\n";
+//		
+//
+//		if (rbs_FO == bestobj){
+//			return 0;
+//		}
+//
+//		if (rbs_FO != bestobj) {
+//			float I = calculateI(init_FO, rbs_FO);
+//			float Iprime = calculateI(init_FO, bestobj);
+//			int r = r_arr[r_arr.size() - 1];
+//			int h = h_arr[h_arr.size() - 1];
+//
+//			writeCSV(S_origin, S_prime, r, h, I, Iprime, "base.csv");
+//		}
+//		
 //	}
+//	
 //}
 
 void
@@ -193,9 +266,8 @@ read_jobs(const char *fname, vector<Job>& N)
 			ifs >> buf.id;
 			buf.id--;
 			ifs >> buf.ptime[0] >> buf.ptime[1];
-			//ifs >> dummy;
-			      cout<<"Here"<<endl;
-			      cout<<buf.ptime[0]<<"\t"<<buf.ptime[1]<<endl;
+			/*cout<<"Here"<<endl;
+			cout<<buf.ptime[0]<<"\t"<<buf.ptime[1]<<endl;*/
 			if (!ifs.eof())
 				N.push_back(buf);
 		}
@@ -208,14 +280,14 @@ read_jobs(const char *fname, vector<Job>& N)
 }
 
 
-int
+float
 read_sequence(const char *fname, vector<int>& S)
 {
 	ifstream ifs(fname);
 	int obj;
 
 	if (ifs.is_open()) {
-		ifs >> obj;   
+		ifs >> obj;
 		for (int i = 0; i < S.size(); ++i)
 			ifs >> S[i];
 	}
@@ -224,7 +296,7 @@ read_sequence(const char *fname, vector<int>& S)
 		snprintf(buf, 127, "read_sequence(): cannot open %s", fname);
 		throw(buf);
 	}
-	return obj;
+	return float(obj);
 }
 
 
@@ -264,14 +336,10 @@ int main(int argc, char *argv[])
 		for (int i = 0; i < N.size(); ++i) {
 			char buf[128];
 			snprintf(buf, 127, "C(0,%d)", i);
-			//cout<<buf<<endl;
 			Ctime[0][i].setName(buf);
 			snprintf(buf, 127, "C(1,%d)", i);
-			//cout<<buf<<endl;
 			Ctime[1][i].setName(buf);
 		}
-
-		//cout<<Ctime[1]<<endl;
 
 		model.add(IloMinimize(env, IloSum(Ctime[1])));
 
@@ -328,8 +396,11 @@ int main(int argc, char *argv[])
 		char ubname[128];
 		snprintf(ubname, 127, "%s.%s", argv[1], ext);
 		cout << ubname << endl;
-		int cur_best_obj = read_sequence(ubname, S);
-		cout << cur_best_obj << endl;
+		float cur_best_obj = read_sequence(ubname, S);
+
+		init_FO = cur_best_obj;	//S become S with rbs
+		cout << "Init_FO:----------------------------" << init_FO;
+		cout << cur_best_obj << endl;//cur_best_obj = S rbs FO
 		initial_obj = cur_best_obj;
 
 		clock_t t_start = clock();
@@ -355,7 +426,7 @@ int main(int argc, char *argv[])
 				ofs << S[i] << " ";
 			}
 			ofs << "\n";
-			ofs << r_arr[r_arr.size() - 1] <<" ";
+			ofs << r_arr[r_arr.size() - 1] << " ";
 			ofs << h_arr[h_arr.size() - 1] << " ";
 			ofs << endl;
 		}
@@ -379,6 +450,6 @@ int main(int argc, char *argv[])
 	  res=EXIT_FAILURE;
 	}
 	 */
-	Sleep(100000);
+	Sleep(10000000);
 	return res;
 }
