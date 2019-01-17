@@ -22,9 +22,8 @@ int initial_obj;
 int init_FO;
 
 int sp_cnt = 0;
-
-std::vector< int > r_arr;
-std::vector< int > h_arr;
+int r = -1;
+int  h = -1;
 
 struct Job {
 	int id;
@@ -120,18 +119,19 @@ search(IloCplex cpx, IloIntVarArray x[], vector<Job>& N, vector<int>& S, float&b
 				sp_cnt++;
 				if (sp_time > max_sp_time) {
 					max_sp_time = sp_time;
-				}
+				} 
 
-				if (cpx.getObjValue() < bestobj) {
+				if ((float)cpx.getObjValue() < (bestobj-0.000001)) {
 					bestobj = cpx.getObjValue();
 					cout << "bestobj:--------" << bestobj<<endl;
 					get_sequence(cpx, x, N, S);
+					cout << "iteration:------" << iter << endl;
 					cout << "r :" << s << "\t" << "h: " << j << endl;
 					S_prime = get_S_with_ptime(N, S);
 					cout << "Improved to " << bestobj <<
 						" at time " << ((double)(clock() - start_time)) / CLOCKS_PER_SEC << endl;
-					r_arr.push_back(s);
-					h_arr.push_back(j);
+					r = s;
+					h = j;
 				}
 				while (!L.empty()) {
 					x[L.front().first][L.front().second].setLB(0);
@@ -140,26 +140,26 @@ search(IloCplex cpx, IloIntVarArray x[], vector<Job>& N, vector<int>& S, float&b
 				}
 			}			
 		}
-		cout << "------------------------------------------------------------" << "\n";
-		cout << "r :" << r_arr[r_arr.size() - 1] << "\t" << "h: " << h_arr[h_arr.size() - 1] << endl;
-		//vector<int> Sprime = get_sequence(cpx, x, N, S);
-		//for (vector<int>::iterator ite = Sprime.begin(); ite != Sprime.end(); ite++)
-		//	cout << *ite << " ";
-		cout << "BestObj:------------------------" << bestobj << "\n";
-		cout << "init_FO:--------------------" << init_FO << "\n";
-		cout << "rbs_FO:----------------------" << rbs_FO << "\n";
-		cout << "------------------------------------------------------------" << "\n";
-		if (rbs_FO == bestobj) {
+		
+		if (abs(rbs_FO - bestobj)<0.001) {
 			return 0;
-		}
-		if (rbs_FO != bestobj) {
+		}else{
+			cout << "------------------------------------------------------------" << "\n";
+			cout << "r :" << r << "\t" << "h: " << h << endl;
+			cout << "iteration:----------" << iter << endl;
+			//vector<int> Sprime = get_sequence(cpx, x, N, S);
+			//for (vector<int>::iterator ite = Sprime.begin(); ite != Sprime.end(); ite++)
+			//	cout << *ite << " ";
+			cout << "BestObj:------------------------" << bestobj << "\n";
+			cout << "init_FO:--------------------" << init_FO << "\n";
+			cout << "rbs_FO:----------------------" << rbs_FO << "\n";
+			cout << "------------------------------------------------------------" << "\n";
+
 			float I = calculateI(float(init_FO), float(rbs_FO));
 			float Iprime = calculateI(float(init_FO), float(bestobj));
-			int r = r_arr[r_arr.size() - 1];
-			int h = h_arr[h_arr.size() - 1];
-
 			writeCSV(S_origin, S_prime, r, h, I, Iprime, "base.csv");
 		}
+		iter ++;
 	}
 }
 
@@ -386,6 +386,7 @@ int main(int argc, char *argv[])
 		cpx.exportModel("pippo.lp");
 		//cpx.setParam(IloCplex::TiLim, 20.0);
 		cpx.setParam(IloCplex::MIPDisplay, 0);
+		cpx.setParam(IloCplex::Param::ParamDisplay, 0);
 		cpx.setParam(IloCplex::EpGap, 0);
 		/*
 		cpx.solve();
@@ -408,7 +409,6 @@ int main(int argc, char *argv[])
 
 		if (initial_obj < cur_best_obj) {
 			cout << "Current FO is greater than initial FO" << endl;
-			Sleep(10000);
 			exit(0);
 		}
 		cout << "INITIALOBJ=" << initial_obj << endl;
@@ -426,7 +426,7 @@ int main(int argc, char *argv[])
 				ofs << S[i] << " ";
 			}
 			ofs << "\n";
-			ofs << r_arr[r_arr.size() - 1] << " ";
+			/*ofs << r_arr[r_arr.size() - 1] << " ";
 			ofs << h_arr[h_arr.size() - 1] << " ";
 			ofs << endl;
 		}
@@ -434,7 +434,8 @@ int main(int argc, char *argv[])
 			std::cout << *i << ' ';
 		cout << "\n" << endl;
 		for (auto i = h_arr.begin(); i != h_arr.end(); ++i)
-			std::cout << *i << ' ';
+			std::cout << *i << ' ';*/
+		}
 	}
 
 	catch (const char *s) {
@@ -450,6 +451,5 @@ int main(int argc, char *argv[])
 	  res=EXIT_FAILURE;
 	}
 	 */
-	Sleep(10000000);
 	return res;
 }
