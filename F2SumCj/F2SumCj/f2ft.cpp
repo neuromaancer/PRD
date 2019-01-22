@@ -161,6 +161,9 @@ search(IloCplex cpx, IloIntVarArray x[], vector<Job>& N, vector<int>& S, float&b
 		}
 		iter ++;
 	}
+	std::ofstream myfile;
+	myfile.open("base.csv", ios::app);
+	myfile << "\n";
 }
 
 //bool
