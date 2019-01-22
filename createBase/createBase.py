@@ -138,7 +138,7 @@ def generationBase(instancePath):
     files = os.listdir(instancePath)
     for file in files:
         if file.endswith(".txt"):
-            generateBaseForOneIns(300, 15,file)
+            createOptSeqWin(file,3,10000000)
 
 if __name__ == "__main__":
     # createOptSeq("/Users/alafateabulimiti/PycharmProjects/PRD/createBase/data.txt",3,10)
