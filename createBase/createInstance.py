@@ -1,7 +1,8 @@
 import numpy as np
 import time
 
-def createInstance(numJobs, numInstance, numMachine =2):
+
+def createInstance(numJobs, numInstance, numMachine=2):
     '''
     create the instances, the processing times are random but between 10 and 100 units of time
     :param numJobs: number of the jobs 
@@ -17,4 +18,5 @@ def createInstance(numJobs, numInstance, numMachine =2):
                    + str(i) + '_' + time.strftime("%d-%m-%Y", time.localtime()) + '.txt',
                    instance, fmt='%d %d %d', delimiter=' ')
 
-createInstance(100, 20)
+
+createInstance(100, 1600 * 5)

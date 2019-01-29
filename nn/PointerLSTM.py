@@ -4,7 +4,9 @@ from keras.activations import tanh, softmax
 from keras.engine import InputSpec
 from keras.layers import LSTM
 from keras.layers.recurrent import Recurrent
-#from keras.layers.recurrent import _time_distributed_dense
+
+
+# from keras.layers.recurrent import _time_distributed_dense
 
 class PointerLSTM(LSTM):
     def __init__(self, hidden_shape, *args, **kwargs):
@@ -78,8 +80,9 @@ class PointerLSTM(LSTM):
     def compute_output_shape(self, input_shape):
         return (input_shape[0], input_shape[1], input_shape[1])
 
+
 def _time_distributed_dense(x, w, b=None, dropout=None,
-                           input_dim=None, output_dim=None, timesteps=None):
+                            input_dim=None, output_dim=None, timesteps=None):
     '''Apply y.w + b for every temporal slice y of x.
     '''
     if not input_dim:

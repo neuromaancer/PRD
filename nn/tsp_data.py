@@ -65,6 +65,6 @@ class Tsp:
 
 if __name__ == "__main__":
     p = Tsp()
-    X, Y = p.next_batch(1)
+    X, Y = p.next_batch(5)
     print(X)
-    print(Y)
+    #print(Y)
