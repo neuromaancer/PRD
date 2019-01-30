@@ -16,13 +16,16 @@ def scheduler(epoch):
 
 print("preparing dataset...")
 t = tsp_data.Tsp()
-X, Y = t.next_batch(10000)
+X, Y = t.next_batch(2)
 x_test, y_test = t.next_batch(1)
+print(Y.shape)
+
 
 YY = []
 for y in Y:
     YY.append(to_categorical(y))
 YY = np.asarray(YY)
+print(YY[0])
 
 hidden_size = 128
 seq_len = 10
