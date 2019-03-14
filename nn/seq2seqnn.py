@@ -22,7 +22,7 @@ output_length = 100
 output_dim = 2
 
 samples = 100
-hidden_dim = 1000
+hidden_dim = 100
 
 
 def WinAcc(y_true, y_pred):
@@ -60,24 +60,23 @@ def customcrossentropy(y_true, y_pred, weight=0.5):
 
 
 def Seq2SeqModel():
-    X_train, y_train, X_test, y_test, X_validation, y_validation = preprocess.divideDatawithC(
-        '/Users/alafateabulimiti/PycharmProjects/PRD/database/base.txt', 100)
+    # X_train, y_train, X_test, y_test, X_validation, y_validation = preprocess.divideDatawithC(
+    #     '/Users/alafateabulimiti/PycharmProjects/PRD/database/base.txt', 100)
 
     # test with one instance
-    # X_train = []
-    # y_train = []
-    # with open('databaseC.csv') as data:
-    #     reader = csv.reader(data)
-    #     dataSet = list(reader)
-    #     dataSet = dataSet[1:3]
-    #     for line in dataSet:
-    #         ptimes_list, solved_list = preprocess.saveLinewithC(line)
-    #         # ptimes_list = preprocessing.scale(ptimes_list)
-    #         X_train.append(ptimes_list)
-    #         y_train.append(solved_list)
-    #     X_train = np.asarray(X_train)
-    #     y_train = np.asarray(y_train)
-    #     y_train = np.reshape(y_train, (len(y_train), 100, 1))
+    X_train = []
+    y_train = []
+    with open('test.csv') as data:
+        reader = csv.reader(data)
+        dataSet = list(reader)
+        for line in dataSet:
+            ptimes_list, solved_list = preprocess.saveLinewithC(line)
+            # ptimes_list = preprocessing.scale(ptimes_list)
+            X_train.append(ptimes_list)
+            y_train.append(solved_list)
+        X_train = np.asarray(X_train)
+        y_train = np.asarray(y_train)
+        y_train = np.reshape(y_train, (len(y_train), 100, 1))
 
     #     print(X_train[0])
     #     print(y_train[0])
@@ -90,13 +89,14 @@ def Seq2SeqModel():
     # print(y_train[1])
 
     model = AttentionSeq2Seq(output_dim=output_dim, hidden_dim=hidden_dim, output_length=output_length,
-                             input_shape=(input_length, 4), depth=3)
+                             input_shape=(input_length, 4), depth=1)
 
     # print(model.summary())
+    adam = optimizers.adam(decay=1e-6)
     # model.compile(loss='categorical_crossentropy', optimizer='sgd', metrics=['accuracy', WinAcc, OutWinAcc])
     # model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy', WinAcc, OutWinAcc])
     # model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy', WinAcc, OutWinAcc])
-    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=[WinAcc, OutWinAcc])
+    model.compile(loss='categorical_crossentropy', optimizer=adam, metrics=['accuracy', WinAcc, OutWinAcc])
 
     YY = []
     for y in y_train:
@@ -108,13 +108,13 @@ def Seq2SeqModel():
     # print(YY.shape)
     # print(K.get_value(yyyy))
     # print(yyyy[1])
-    for yv in y_validation:
-        YYv.append(to_categorical(yv))
-    YYv = np.asarray(YYv)
-    YYt = []
-    for yt in y_test:
-        YYt.append(to_categorical(yt))
-    YYt = np.asarray(YYt)
+    # for yv in y_validation:
+    #     YYv.append(to_categorical(yv))
+    # YYv = np.asarray(YYv)
+    # YYt = []
+    # for yt in y_test:
+    #     YYt.append(to_categorical(yt))
+    # YYt = np.asarray(YYt)
 
     # checkpoint
     filepath = "best_weights.h5"
@@ -137,9 +137,11 @@ def Seq2SeqModel():
     maxfeatures = np.max(np.max(X_train, axis=1), axis=0)
     # print(maxfeatures)
     # input()
-    history = model.fit(X_train, YY, epochs=50000, validation_data=(X_validation, YYv), batch_size=64,
-                        callbacks=callbacks_list)
+    # history = model.fit(X_train, YY, epochs=50000, validation_data=(X_validation, YYv), batch_size=64,
+    #                     callbacks=callbacks_list)
 
+    history = model.fit(X_train, YY, epochs=3000, batch_size=64,
+                        callbacks=callbacks_list)
     # predict_test = model.predict(X_test)
     # print(predict_test)
     # predict = K.argmax(predict_test, axis=2)
@@ -155,7 +157,7 @@ def Seq2SeqModel():
 
     # summarize history for loss
     plt.plot(history.history['loss'])
-    plt.plot(history.history['val_loss'])
+    # plt.plot(history.history['val_loss'])
     plt.title('model loss')
     plt.ylabel('loss')
     plt.xlabel('epoch')
@@ -163,7 +165,7 @@ def Seq2SeqModel():
     plt.show()
 
     plt.plot(history.history['WinAcc'])
-    plt.plot(history.history['val_WinAcc'])
+    # plt.plot(history.history['val_WinAcc'])
     plt.title('model WinAcc')
     plt.ylabel('WinAcc')
     plt.xlabel('epoch')
@@ -171,7 +173,7 @@ def Seq2SeqModel():
     plt.show()
 
     plt.plot(history.history['OutWinAcc'])
-    plt.plot(history.history['val_OutWinAcc'])
+    # plt.plot(history.history['val_OutWinAcc'])
     plt.title('model OutWinAcc')
     plt.ylabel('OutWinAcc')
     plt.xlabel('epoch')
