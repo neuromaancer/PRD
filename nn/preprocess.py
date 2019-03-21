@@ -404,9 +404,6 @@ class Preprocess:
 
         solved_list = list(map(int, line[1]))
 
-        np.array(ptimes_list)
-        np.array(solved_list)
-
         return ptimes_list, solved_list
 
 # num_ins_train = int(59 * 0.6)

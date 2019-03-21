@@ -99,18 +99,41 @@ class SeqSeqNN:
         preprocess = Preprocess()
         X_train = []
         y_train = []
-        with open('test.csv') as data:
+        X_validation = []
+        y_validation = []
+
+        with open('test2.csv') as data:
             reader = csv.reader(data)
             dataSet = list(reader)
-            for line in dataSet:
+            trainning_set = dataSet[:16]
+            #print(type(trainning_set))
+            validation_set = dataSet[16:22]
+            #print(validation_set)
+
+            for line in trainning_set:
                 ptimes_list, solved_list = preprocess.saveLinewithC(line)
                 # ptimes_list = preprocessing.scale(ptimes_list)
                 X_train.append(ptimes_list)
                 y_train.append(solved_list)
+
             X_train = np.asarray(X_train)
+            # print(X_train)
             y_train = np.asarray(y_train)
             y_train = np.reshape(y_train, (len(y_train), 100, 1))
 
+            for l in validation_set:
+                ptimes_lis, solved_lis = preprocess.saveLinewithC(l)
+                X_validation.append(ptimes_lis)
+                y_validation.append(solved_lis)
+
+            #print(X_validation)
+
+            X_validation = np.asarray(X_validation)
+            #print(X_validation)
+            y_validation = np.asarray(y_validation)
+            y_validation = np.reshape(y_validation, (len(y_validation), 100, 1))
+            # print(X_validation)
+            # print(y_validation)
         #     print(X_train[0])
         #     print(y_train[0])
 
@@ -131,21 +154,18 @@ class SeqSeqNN:
         # model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy', WinAcc, OutWinAcc])
         # model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy', WinAcc, OutWinAcc])
         model.compile(loss='categorical_crossentropy', optimizer='adam',
-                      metrics=['accuracy', seq2seqnn.WinAcc, seq2seqnn.WinAcc])
+                      metrics=['accuracy', seq2seqnn.WinAcc, seq2seqnn.OutWinAcc])
 
         YY = []
         for y in y_train:
             YY.append(to_categorical(y))
         YY = np.asarray(YY)
+
         YYv = []
-        # print(YY)
-        # yyyy = K.argmax(YY, axis=2)
-        # print(YY.shape)
-        # print(K.get_value(yyyy))
-        # print(yyyy[1])
-        # for yv in y_validation:
-        #     YYv.append(to_categorical(yv))
-        # YYv = np.asarray(YYv)
+        for yv in y_validation:
+            YYv.append(to_categorical(yv))
+        YYv = np.asarray(YYv)
+
         # YYt = []
         # for yt in y_test:
         #     YYt.append(to_categorical(yt))
@@ -175,7 +195,7 @@ class SeqSeqNN:
         # history = model.fit(X_train, YY, epochs=50000, validation_data=(X_validation, YYv), batch_size=64,
         #                     callbacks=callbacks_list)
 
-        history = model.fit(X_train, YY, epochs=5000, batch_size=64,
+        history = model.fit(X_train, YY, validation_data=(X_validation, YYv), epochs=5000, batch_size=64,
                             callbacks=callbacks_list)
         # predict_test = model.predict(X_test)
         # print(predict_test)
@@ -192,7 +212,7 @@ class SeqSeqNN:
 
         # summarize history for loss
         plt.plot(history.history['loss'])
-        # plt.plot(history.history['val_loss'])
+        plt.plot(history.history['val_loss'])
         plt.title('model loss')
         plt.ylabel('loss')
         plt.xlabel('epoch')
@@ -200,7 +220,7 @@ class SeqSeqNN:
         plt.show()
 
         plt.plot(history.history['WinAcc'])
-        # plt.plot(history.history['val_WinAcc'])
+        plt.plot(history.history['val_WinAcc'])
         plt.title('model WinAcc')
         plt.ylabel('WinAcc')
         plt.xlabel('epoch')
@@ -208,7 +228,7 @@ class SeqSeqNN:
         plt.show()
 
         plt.plot(history.history['OutWinAcc'])
-        # plt.plot(history.history['val_OutWinAcc'])
+        plt.plot(history.history['val_OutWinAcc'])
         plt.title('model OutWinAcc')
         plt.ylabel('OutWinAcc')
         plt.xlabel('epoch')
