@@ -406,6 +406,7 @@ class Preprocess:
 
         return ptimes_list, solved_list
 
+if __name__ == "__main__":
 # num_ins_train = int(59 * 0.6)
 # print(num_ins_train)
 # preprcessingData('/Users/alafateabulimiti/PycharmProjects/PRD/database/base.txt', 100)
@@ -447,27 +448,30 @@ class Preprocess:
 # print('---------------------')
 # print(y)
 # filenames = ['/Users/alafateabulimiti/PycharmProjects/PRD/database/Database.txt','/Users/alafateabulimiti/PycharmProjects/PRD/database/Database2.txt','/Users/alafateabulimiti/PycharmProjects/PRD/database/Database3.txt']
-# MergeTXT([ '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database1.txt',
-#            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database2.txt',
-#            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database3.txt',
-#            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database4.txt',
-#            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database5.txt',
-#            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database6.txt',
-#            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database7.txt',
-#            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database8.txt',
-#            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database9.txt',
-#            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database10.txt',
-#            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database11.txt',
-#            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database12.txt',
-#            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database13.txt',
-#            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database14.txt',
-#            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database15.txt',
-#            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database16.txt',
-#            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database17.txt',
-#            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database18.txt',
-#            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database19.txt',
-#            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database20.txt',
-#            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database21.txt',
-#            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database22.txt',
-#            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database23.txt',
-#            ])
+    preprocess = Preprocess()
+    # preprocess.MergeTXT([
+    #             '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database.txt',
+    #            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database2.txt',
+    #            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database3.txt',
+    #            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database4.txt',
+    #            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database5.txt',
+    #            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database6.txt',
+    #            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database7.txt',
+    #            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database8.txt',
+    #            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database9.txt',
+    #            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database10.txt',
+    #            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database11.txt',
+    #            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database12.txt',
+    #            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database13.txt',
+    #            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database14.txt',
+    #            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database15.txt',
+    #            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database16.txt',
+    #            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database17.txt',
+    #            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database18.txt',
+    #            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database19.txt',
+    #            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database20.txt',
+    #            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database21.txt',
+    #            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database22.txt',
+    #            '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database23.txt',
+    #            ])
+    preprocess.preprcessingDatawithC('/Users/alafateabulimiti/PycharmProjects/PRD/database/base.txt', 100)
