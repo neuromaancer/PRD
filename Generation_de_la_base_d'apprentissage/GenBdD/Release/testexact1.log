@@ -1,0 +1,86 @@
+﻿  testexact1.c
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(37): warning C4244: '=': conversion from 'float' to 'long', possible loss of data
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(38): warning C4244: '=': conversion from 'float' to 'long', possible loss of data
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(33): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(208): note: see declaration of 'fopen'
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(70): warning C4013: 'time' undefined; assuming extern returning int
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(73): warning C4018: '<': signed/unsigned mismatch
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(62): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(208): note: see declaration of 'fopen'
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(79): warning C4996: 'spawnl': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _spawnl. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\process.h(303): note: see declaration of 'spawnl'
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(80): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(208): note: see declaration of 'fopen'
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(56): warning C4101: 'ag_ndb_max': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(53): warning C4101: 'ndc': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(48): warning C4101: 'tpschu': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(59): warning C4101: 'ag_td_min': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(58): warning C4101: 'ag_tb_moy': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(55): warning C4101: 'ag_ndc_min': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(54): warning C4101: 'ndw_max': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(54): warning C4101: 'ndb_max': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(53): warning C4101: 'ndc_max': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(52): warning C4101: 'tpd_moy': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(52): warning C4101: 'tpd_min': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(52): warning C4101: 'tpc_min': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(59): warning C4101: 'ag_tw_min': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(57): warning C4101: 'ag_ndw_moy': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(60): warning C4101: 'ag_td_max': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(56): warning C4101: 'ag_ndc_max': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(52): warning C4101: 'tpp_moy': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(52): warning C4101: 'permin': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(47): warning C4101: 'k': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(59): warning C4101: 'ag_tc_min': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(57): warning C4101: 'ag_ndc_moy': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(55): warning C4101: 'ag_ndw_min': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(53): warning C4101: 'ndc_min': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(52): warning C4101: 'tpw_max': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(52): warning C4101: 'tpw_min': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(59): warning C4101: 'ag_tp_min': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(58): warning C4101: 'ag_tw_moy': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(57): warning C4101: 'ag_ndb_moy': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(56): warning C4101: 'ag_ndp_max': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(52): warning C4101: 'tpc_max': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(52): warning C4101: 'ndp_moy': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(52): warning C4101: 'permoy': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(47): warning C4101: 'optchu': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(58): warning C4101: 'ag_tc_moy': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(56): warning C4101: 'ag_ndw_max': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(52): warning C4101: 'tpp_min': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(52): warning C4101: 'tpc_moy': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(57): warning C4101: 'ag_ndp_moy': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(55): warning C4101: 'ag_ndd_min': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(55): warning C4101: 'ag_ndp_min': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(53): warning C4101: 'ndp': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(52): warning C4101: 'tpw_moy': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(54): warning C4101: 'ndw_min': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(53): warning C4101: 'ndp_max': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(52): warning C4101: 'tpb_max': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(52): warning C4101: 'ndw_moy': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(52): warning C4101: 'ndb_moy': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(52): warning C4101: 'permax': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(60): warning C4101: 'ag_tw_max': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(58): warning C4101: 'ag_td_moy': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(55): warning C4101: 'ag_ndb_min': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(52): warning C4101: 'tpp_max': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(52): warning C4101: 'ndd_moy': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(60): warning C4101: 'ag_tp_max': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(54): warning C4101: 'ndb_min': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(53): warning C4101: 'ndp_min': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(52): warning C4101: 'ndc_moy': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(60): warning C4101: 'ag_tb_max': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(57): warning C4101: 'ag_ndd_moy': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(56): warning C4101: 'ag_ndd_max': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(54): warning C4101: 'ndd_max': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(54): warning C4101: 'ndd_min': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(52): warning C4101: 'tpb_moy': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(49): warning C4101: 't': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(60): warning C4101: 'ag_tc_max': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(59): warning C4101: 'ag_tb_min': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(47): warning C4101: 'lbchu': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(58): warning C4101: 'ag_tp_moy': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(52): warning C4101: 'tpb_min': unreferenced local variable
+c:\users\alafate abulimiti\desktop\code prd20jobs\genbdd\testexact1.c(52): warning C4101: 'tpd_max': unreferenced local variable
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(1216,5): warning MSB8012: TargetPath(C:\Users\Alafate ABULIMITI\Desktop\Code PRD20jobs\GenBdD\.\Release\GenBdD.exe) does not match the Linker's OutputFile property value (C:\Users\Alafate ABULIMITI\Desktop\Code PRD20jobs\GenBdD\Release\testexact1.exe). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(1218,5): warning MSB8012: TargetName(GenBdD) does not match the Linker's OutputFile property value (testexact1). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+  testexact1.vcxproj -> C:\Users\Alafate ABULIMITI\Desktop\Code PRD20jobs\GenBdD\.\Release\GenBdD.exe

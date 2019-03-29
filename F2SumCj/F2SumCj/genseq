@@ -1,7 +1,0 @@
-#!/bin/bash
-for i in *.dat 
-do
-  wine RBS_FLOWSHOP.exe $i > $i.out
-  cp ub.rep $i.rbs
-done
-
