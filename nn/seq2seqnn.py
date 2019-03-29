@@ -105,9 +105,9 @@ class SeqSeqNN:
         with open('test2.csv') as data:
             reader = csv.reader(data)
             dataSet = list(reader)
-            trainning_set = dataSet[:16]
+            trainning_set = dataSet[:32]
             #print(type(trainning_set))
-            validation_set = dataSet[16:22]
+            validation_set = dataSet[32:44]
             #print(validation_set)
 
             for line in trainning_set:
