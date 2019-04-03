@@ -1,13 +1,11 @@
 from seq2seq.models import AttentionSeq2Seq
 import numpy as np
-import csv
+
 from nn.preprocess import Preprocess
-from nn import preprocess
-from sklearn import preprocessing
+
 import os
 
 np.random.seed(1)
-
 from keras.callbacks import LearningRateScheduler
 from keras.utils.np_utils import to_categorical
 import keras.backend as K
@@ -17,13 +15,13 @@ from keras.callbacks import ModelCheckpoint
 from keras import optimizers
 
 input_length = 100
-input_dim = 2
 
 output_length = 100
 output_dim = 2
-
-samples = 100
 hidden_dim = 100
+
+size = 100
+num_instance = 4448
 
 
 class SeqSeqNN:
@@ -91,49 +89,67 @@ class SeqSeqNN:
         Function can input the data and train the model seq2seq.
         :return:
         """
-
-        # X_train, y_train, X_test, y_test, X_validation, y_validation = preprocess.divideDataByInswithC(
-        #     '/Users/alafateabulimiti/PycharmProjects/PRD/database/base.txt', 100, 80)
+        preprocess = Preprocess()
+        # X_train, y_train, X_test, y_test, X_validation, y_validation = np.array()
+        print("1. Generate database without Completion time")
+        print("2. Generate database with Completion time")
+        print("3. Training without Completion time")
+        print("4. Training with Completion time")
+        print("Your choice: ")
+        choice = input()
+        if choice == '1':
+            preprocess.preprcessingData("../database/base.txt", size)
+            return None
+        elif choice == '2':
+            preprocess.preprcessingDatawithC("../database/base.txt", size)
+            return None
+        elif choice == '3':
+            input_dim = 2
+            X_train, y_train, X_test, y_test, X_validation, y_validation = preprocess.divideData(size, num_instance)
+        elif choice == '4':
+            input_dim = 4
+            X_train, y_train, X_test, y_test, X_validation, y_validation = preprocess.divideDatawithC(size,
+                                                                                                      num_instance)
 
         # test with one instance
-        preprocess = Preprocess()
-        X_train = []
-        y_train = []
-        X_validation = []
-        y_validation = []
 
-        with open('test2.csv') as data:
-            reader = csv.reader(data)
-            dataSet = list(reader)
-            trainning_set = dataSet[:32]
-            #print(type(trainning_set))
-            validation_set = dataSet[32:44]
-            #print(validation_set)
-
-            for line in trainning_set:
-                ptimes_list, solved_list = preprocess.saveLinewithC(line)
-                # ptimes_list = preprocessing.scale(ptimes_list)
-                X_train.append(ptimes_list)
-                y_train.append(solved_list)
-
-            X_train = np.asarray(X_train)
-            # print(X_train)
-            y_train = np.asarray(y_train)
-            y_train = np.reshape(y_train, (len(y_train), 100, 1))
-
-            for l in validation_set:
-                ptimes_lis, solved_lis = preprocess.saveLinewithC(l)
-                X_validation.append(ptimes_lis)
-                y_validation.append(solved_lis)
-
-            #print(X_validation)
-
-            X_validation = np.asarray(X_validation)
-            #print(X_validation)
-            y_validation = np.asarray(y_validation)
-            y_validation = np.reshape(y_validation, (len(y_validation), 100, 1))
-            # print(X_validation)
-            # print(y_validation)
+        # X_train = []
+        # y_train = []
+        # X_validation = []
+        # y_validation = []
+        #
+        # with open('test2.csv') as data:
+        #     reader = csv.reader(data)
+        #     dataSet = list(reader)
+        #     trainning_set = dataSet[:32]
+        #     #print(type(trainning_set))
+        #     validation_set = dataSet[32:44]
+        #     #print(validation_set)
+        #
+        #     for line in trainning_set:
+        #         ptimes_list, solved_list = preprocess.saveLinewithC(line)
+        #         # ptimes_list = preprocessing.scale(ptimes_list)
+        #         X_train.append(ptimes_list)
+        #         y_train.append(solved_list)
+        #
+        #     X_train = np.asarray(X_train)
+        #     # print(X_train)
+        #     y_train = np.asarray(y_train)
+        #     y_train = np.reshape(y_train, (len(y_train), 100, 1))
+        #
+        #     for l in validation_set:
+        #         ptimes_lis, solved_lis = preprocess.saveLinewithC(l)
+        #         X_validation.append(ptimes_lis)
+        #         y_validation.append(solved_lis)
+        #
+        #     #print(X_validation)
+        #
+        #     X_validation = np.asarray(X_validation)
+        #     #print(X_validation)
+        #     y_validation = np.asarray(y_validation)
+        #     y_validation = np.reshape(y_validation, (len(y_validation), 100, 1))
+        # print(X_validation)
+        # print(y_validation)
         #     print(X_train[0])
         #     print(y_train[0])
 
@@ -145,7 +161,7 @@ class SeqSeqNN:
         # print(y_train[1])
 
         model = AttentionSeq2Seq(output_dim=output_dim, hidden_dim=hidden_dim, output_length=output_length,
-                                 input_shape=(input_length, 4), depth=1)
+                                 input_shape=(input_length, input_dim), depth=1)
 
         # print(model.summary())
         adam = optimizers.adam(decay=1e-6)
@@ -153,8 +169,9 @@ class SeqSeqNN:
         # model.compile(loss='categorical_crossentropy', optimizer='sgd', metrics=['accuracy', WinAcc, OutWinAcc])
         # model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy', WinAcc, OutWinAcc])
         # model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy', WinAcc, OutWinAcc])
+
         model.compile(loss='categorical_crossentropy', optimizer='adam',
-                      metrics=['accuracy', seq2seqnn.WinAcc, seq2seqnn.OutWinAcc])
+                      metrics=['accuracy', seq2seqnn.WinAcc,seq2seqnn.WinAcc,seq2seqnn.OutWinAcc,])
 
         YY = []
         for y in y_train:
@@ -166,10 +183,10 @@ class SeqSeqNN:
             YYv.append(to_categorical(yv))
         YYv = np.asarray(YYv)
 
-        # YYt = []
-        # for yt in y_test:
-        #     YYt.append(to_categorical(yt))
-        # YYt = np.asarray(YYt)
+        YYt = []
+        for yt in y_test:
+            YYt.append(to_categorical(yt))
+        YYt = np.asarray(YYt)
 
         # checkpoint
         filepath = "best_weights.h5"

@@ -39,7 +39,7 @@ class Preprocess:
             data = f.readlines()
             data = data[2:]
             num_ins = 1
-            with open("database.csv", "a+") as file:
+            with open("../database/database.csv", "a+") as file:
                 file.write(str(num_ins) + '\n')
                 for line in data:
                     if line.count('\n') == len(line):
@@ -74,7 +74,7 @@ class Preprocess:
             data = f.readlines()
             data = data[2:]
             num_ins = 1
-            with open("databaseC.csv", "a+") as file:
+            with open("../database/databaseC.csv", "a+") as file:
                 file.write(str(num_ins) + '\n')
                 for line in data:
                     if line.count('\n') == len(line):
@@ -120,7 +120,7 @@ class Preprocess:
                     for line in infile:
                         outfile.write(line)
 
-    def divideData(self, txtfile, size):
+    def divideData(self, size, num_instance):
         """
         Function can divide the data into 3 part: Training set, Test set and Validation set.
 
@@ -135,7 +135,8 @@ class Preprocess:
         y_validation: Validation set which have the binary sequnece that can indicate the window.
         """
 
-        num_instance = self.preprcessingData(txtfile, size)
+        # num_instance = self.preprcessingData(txtfile, size)
+        print("num_instance: " + str(num_instance))
         num_ins_test = int(num_instance * 0.2)
         num_ins_validation = num_ins_test
         num_ins_train = num_instance - num_ins_test * 2
@@ -145,7 +146,7 @@ class Preprocess:
         y_test = []
         X_validation = []
         y_validation = []
-        with open('database.csv') as data:
+        with open('../database/database.csv') as data:
             reader = csv.reader(data)
             dataSet = list(reader)
             length = len(dataSet)
@@ -177,7 +178,7 @@ class Preprocess:
         y_validation = np.reshape(y_validation, (len(y_validation), size, 1))
         return X_train, y_train, X_test, y_test, X_validation, y_validation
 
-    def divideDatawithC(self, txtfile, size):
+    def divideDatawithC(self, size, num_instance):
         """
         Function can divide the data into 3 part: Training set, Test set and Validation set.
 
@@ -193,7 +194,6 @@ class Preprocess:
 
         """
 
-        num_instance = self.preprcessingDatawithC(txtfile, size)
         print("num_instance: " + str(num_instance))
         num_ins_test = int(num_instance * 0.2)
         num_ins_validation = num_ins_test
@@ -204,7 +204,7 @@ class Preprocess:
         y_test = []
         X_validation = []
         y_validation = []
-        with open('databaseC.csv') as data:
+        with open('../database/databaseC.csv') as data:
             reader = csv.reader(data)
             dataSet = list(reader)
             length = len(dataSet)
@@ -236,8 +236,7 @@ class Preprocess:
         y_validation = np.reshape(y_validation, (len(y_validation), size, 1))
         return X_train, y_train, X_test, y_test, X_validation, y_validation
 
-
-    def divideDataByIns(self, txtfile, size):
+    def divideDataByIns(self,size, num_instance):
         """
         Function can divide the data into 3 part: Training set, Test set and Validation set.
         But select only one line of data by instance.
@@ -253,7 +252,7 @@ class Preprocess:
             y_validation: Validation set which have the binary sequnece that can indicate the window.
         """
 
-        num_instance = 1625
+        print("num_instance: " + str(num_instance))
         num_ins_test = int(num_instance * 0.2)
         num_ins_validation = num_ins_test
         num_ins_train = num_instance - num_ins_test * 2
@@ -263,7 +262,7 @@ class Preprocess:
         y_test = []
         X_validation = []
         y_validation = []
-        with open('database.csv') as data:
+        with open('../database/database.csv') as data:
             reader = csv.reader(data)
             dataSet = list(reader)
             length = len(dataSet)
@@ -298,8 +297,7 @@ class Preprocess:
         y_validation = np.reshape(y_validation, (len(y_validation), size, 1))
         return X_train, y_train, X_test, y_test, X_validation, y_validation
 
-
-    def divideDataByInswithC(self, txtfile, size, num_instance):
+    def divideDataByInswithC(self, size, num_instance):
         """
         Function can divide the data into 3 part: Training set, Test set and Validation set.
         But select only one line of data by instance.
@@ -314,7 +312,7 @@ class Preprocess:
             X_validation: Validation set which have the initial sequence with processing time and completion time.
             y_validation: Validation set which have the binary sequnece that can indicate the window.
         """
-
+        print("num_instance: " + str(num_instance))
         num_ins_test = int(num_instance * 0.2)
         num_ins_validation = num_ins_test
         num_ins_train = num_instance - num_ins_test * 2
@@ -324,7 +322,7 @@ class Preprocess:
         y_test = []
         X_validation = []
         y_validation = []
-        with open('databaseC.csv') as data:
+        with open('../database/databaseC.csv') as data:
             reader = csv.reader(data)
             dataSet = list(reader)
             length = len(dataSet)
@@ -332,6 +330,8 @@ class Preprocess:
             for i in range(length):
                 if len(dataSet[i]) == 1:
                     count = count + 1
+                    print(count)
+
                     if count <= num_ins_train:
                         ptimes_list, solved_list = self.saveLinewithC(dataSet[i + 1])
 
@@ -358,7 +358,6 @@ class Preprocess:
         y_validation = np.asarray(y_validation)
         y_validation = np.reshape(y_validation, (len(y_validation), size, 1))
         return X_train, y_train, X_test, y_test, X_validation, y_validation
-
 
     def saveLine(self, line):
         """
@@ -383,7 +382,6 @@ class Preprocess:
 
         return ptimes_list, solved_list
 
-
     def saveLinewithC(self, line):
         """
         Supplement function for bulid the diffrent sets of the seq2seq model.
@@ -394,6 +392,7 @@ class Preprocess:
         ptimes_list: the sequence with processing time and completion time.
         solved_list: the binary sequence that can indicate the window.
         """
+        #print(line)
         ptimes = line[0].split(' ')
         ptimes_list = []
         # print(ptimes)
@@ -401,53 +400,53 @@ class Preprocess:
             ptimes_list.append(
                 [int(float(ptimes[k])), int(float(ptimes[k + 1])), int(float(ptimes[k + 2])),
                  int(float(ptimes[k + 3]))])
-
         solved_list = list(map(int, line[1]))
 
         return ptimes_list, solved_list
 
-if __name__ == "__main__":
-# num_ins_train = int(59 * 0.6)
-# print(num_ins_train)
-# preprcessingData('/Users/alafateabulimiti/PycharmProjects/PRD/database/base.txt', 100)
 
-# preprcessingDatawithC('/Users/alafateabulimiti/PycharmProjects/PRD/database/base.txt', 100)
-# print(convertRHtoSeq(1, 10, 100))
-# from random import sample
-#
-#
-# List = [0, 1, 2, 3, 4, 5]
-# print(sample(List, 2))
-# print(sample(List, 2))
-# print(sample(List, 2))
-# print(sample(List, 2))
-# with open('database.csv') as data:
-#     reader = csv.reader(data)
-#     for item in reader:
-#
-#         print(item[0])
-# X_train, y_train, X_test, y_test, X_validation, y_validation = divideDataByIns('/Users/alafateabulimiti/PycharmProjects/PRD/database/base.txt', 100)
-# print(len(X_train)+len(X_test)+len(X_validation))
-# print(X_train)
-# print(len(y_train))
-# print(X_train.shape)
-# print(y_test)
-# print(X_validation)
-# print(y_validation)
-# input_length = 5
-# input_dim = 3
-#
-# output_length = 3
-# output_dim = 4
-#
-# samples = 100
-# hidden_dim = 24
-# x = np.random.random((samples, input_length, input_dim))
-# y = np.random.random((samples, output_length, output_dim))
-# print(x)
-# print('---------------------')
-# print(y)
-# filenames = ['/Users/alafateabulimiti/PycharmProjects/PRD/database/Database.txt','/Users/alafateabulimiti/PycharmProjects/PRD/database/Database2.txt','/Users/alafateabulimiti/PycharmProjects/PRD/database/Database3.txt']
+if __name__ == "__main__":
+    # num_ins_train = int(59 * 0.6)
+    # print(num_ins_train)
+    # preprcessingData('/Users/alafateabulimiti/PycharmProjects/PRD/database/base.txt', 100)
+
+    # preprcessingDatawithC('/Users/alafateabulimiti/PycharmProjects/PRD/database/base.txt', 100)
+    # print(convertRHtoSeq(1, 10, 100))
+    # from random import sample
+    #
+    #
+    # List = [0, 1, 2, 3, 4, 5]
+    # print(sample(List, 2))
+    # print(sample(List, 2))
+    # print(sample(List, 2))
+    # print(sample(List, 2))
+    # with open('database.csv') as data:
+    #     reader = csv.reader(data)
+    #     for item in reader:
+    #
+    #         print(item[0])
+    # X_train, y_train, X_test, y_test, X_validation, y_validation = divideDataByIns('/Users/alafateabulimiti/PycharmProjects/PRD/database/base.txt', 100)
+    # print(len(X_train)+len(X_test)+len(X_validation))
+    # print(X_train)
+    # print(len(y_train))
+    # print(X_train.shape)
+    # print(y_test)
+    # print(X_validation)
+    # print(y_validation)
+    # input_length = 5
+    # input_dim = 3
+    #
+    # output_length = 3
+    # output_dim = 4
+    #
+    # samples = 100
+    # hidden_dim = 24
+    # x = np.random.random((samples, input_length, input_dim))
+    # y = np.random.random((samples, output_length, output_dim))
+    # print(x)
+    # print('---------------------')
+    # print(y)
+    # filenames = ['/Users/alafateabulimiti/PycharmProjects/PRD/database/Database.txt','/Users/alafateabulimiti/PycharmProjects/PRD/database/Database2.txt','/Users/alafateabulimiti/PycharmProjects/PRD/database/Database3.txt']
     preprocess = Preprocess()
     # preprocess.MergeTXT([
     #             '/Users/alafateabulimiti/PycharmProjects/PRD/database/Database.txt',
