@@ -14,9 +14,18 @@ def createInstance(numJobs, numInstance, numMachine=2):
         ptimes = np.random.randint(10, 100, size=[numJobs, numMachine])
         ids = np.arange(1, numJobs + 1, 1, dtype=np.int64).reshape(numJobs, 1)
         instance = np.append(ids, ptimes, axis=1)
-        np.savetxt('/Users/alafateabulimiti/PycharmProjects/PRD/instances/' + str(numJobs) + 'jobs_'
-                   + str(i) + '_' + time.strftime("%d-%m-%Y", time.localtime()) + '.txt',
-                   instance, fmt='%d %d %d', delimiter=' ')
+        np.savetxt(
+            (
+                (
+                    f'/Users/alafateabulimiti/PycharmProjects/PRD/instances/{str(numJobs)}jobs_{str(i)}_'
+                    + time.strftime("%d-%m-%Y", time.localtime())
+                )
+                + '.txt'
+            ),
+            instance,
+            fmt='%d %d %d',
+            delimiter=' ',
+        )
 
 
 createInstance(100, 1600 * 5)

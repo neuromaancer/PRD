@@ -18,7 +18,7 @@ def exeTime(func):
 def createOptSeqOSX(filePath, seed, tlim):
     os.system("/Users/alafateabulimiti/PycharmProjects/PRD/createBase/F2sumCj.sh" + " " + filePath + " " + str(
         seed) + " " + str(tlim))
-    return filePath + ".seq"
+    return f"{filePath}.seq"
 
 
 def createOptSeqWin(filePath, seed, tlim):
@@ -26,29 +26,25 @@ def createOptSeqWin(filePath, seed, tlim):
     #     seed) + " " + str(tlim))
     os.system(r"C:\Users\21606250t\PycharmProjects\PRD\Matho\F2SumCj.exe" + ' ' + filePath + " " + str(
         seed) + " " + str(tlim))
-    return filePath + ".seq"
+    return f"{filePath}.seq"
 
 
 def createRbsFile(seqFile, numIt):
-    if seqFile[0:2] == "It":
-        newFile = 'It_' + str(numIt) + '_' + seqFile[:-3][5:] + "rbs"
+    if seqFile[:2] == "It":
+        newFile = f'It_{str(numIt)}_{seqFile[:-3][5:]}rbs'
     else:
-        newFile = 'It_' + str(numIt) + '_' + seqFile[:-3] + "rbs"
+        newFile = f'It_{str(numIt)}_{seqFile[:-3]}rbs'
 
     shutil.copy(seqFile, newFile)
-    r = open(newFile)
-    lines = r.readlines()
-    r.close()
-    w = open(newFile, 'w')
-    w.writelines([item for item in lines[:-1]])
-    w.close()
-
+    with open(newFile) as r:
+        lines = r.readlines()
+    with open(newFile, 'w') as w:
+        w.writelines(list(lines[:-1]))
     return newFile
 
 
 def findOrigin(rbsFileWithIter):
-    orginInstance = rbsFileWithIter[5:][:-4]
-    return orginInstance
+    return rbsFileWithIter[5:][:-4]
 
 
 def createtxtFile(rbsFileWithIter):
@@ -72,15 +68,13 @@ def createtxtFile(rbsFileWithIter):
 
 
 def calculateI(baseFO, targetFO):
-    improvement = 1 - (targetFO / baseFO)
-    return improvement
+    return 1 - (targetFO / baseFO)
 
 
 def extractFOfromFile(file):
     f = open(file)
     rbs = f.readline().split(" ")
-    initFO = int(rbs[0])
-    return initFO
+    return int(rbs[0])
 
 
 def extractRH(seqfile):
@@ -110,29 +104,28 @@ def generateBaseForOneIns(exTime, numIt, instanceFile):
     begin = time.clock()
     end = 0
     num = 1
-    inirbsFile = instanceFile + ".rbs"
+    inirbsFile = f"{instanceFile}.rbs"
     initFO = extractFOfromFile(inirbsFile)
     newinstancefile = instanceFile
     while end < exTime and num < numIt:
         seqfile = createOptSeqWin(newinstancefile, 3, 200)
         if os.stat(seqfile).st_size == 0:
             break
-        else:
-            rbsfile = createRbsFile(seqfile, num)
-            optFO = extractFOfromFile(seqfile)
-            rbsFO = extractFOfromFile(rbsfile)
-            I = calculateI(initFO, rbsFO)
-            Iprime = calculateI(initFO, optFO)
-            r, h = extractRH(seqfile)
-            S = extractSeqWithIns(rbsfile, newinstancefile)
-            Sprime = extractSeqWithIns(seqfile, newinstancefile)
-            with open("base.csv", "a+",newline='') as csvfile:
-                writer = csv.writer(csvfile)
-                writer.writerow([S, Sprime, r, h, I, Iprime])
-            newinstancefile = createtxtFile(rbsfile)
-            current = time.clock()
-            end = current - begin
-            num = num + 1
+        rbsfile = createRbsFile(seqfile, num)
+        optFO = extractFOfromFile(seqfile)
+        rbsFO = extractFOfromFile(rbsfile)
+        I = calculateI(initFO, rbsFO)
+        Iprime = calculateI(initFO, optFO)
+        r, h = extractRH(seqfile)
+        S = extractSeqWithIns(rbsfile, newinstancefile)
+        Sprime = extractSeqWithIns(seqfile, newinstancefile)
+        with open("base.csv", "a+",newline='') as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow([S, Sprime, r, h, I, Iprime])
+        newinstancefile = createtxtFile(rbsfile)
+        current = time.clock()
+        end = current - begin
+        num += 1
 
 def generationBase(instancePath):
     files = os.listdir(instancePath)

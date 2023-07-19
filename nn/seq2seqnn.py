@@ -41,9 +41,7 @@ class SeqSeqNN:
 
         yy = layers.multiply([predict, y_t])
         num_1_yy = K.sum(yy, axis=1)
-        acc = num_1_yy / num_1_true
-        # print(type(acc))
-        return acc
+        return num_1_yy / num_1_true
 
     def OutWinAcc(self, y_true, y_pred):
         """
@@ -62,8 +60,7 @@ class SeqSeqNN:
         yy = layers.multiply([predict, y_t])
         num_1_yy = K.sum(yy, axis=1)
         num_1_outWin = num_1_predict - num_1_yy
-        acc = num_1_outWin / num_1_true
-        return acc
+        return num_1_outWin / num_1_true
 
     def customcrossentropy(self, y_true, y_pred, weight=0.5):
         """
@@ -173,19 +170,13 @@ class SeqSeqNN:
         model.compile(loss='categorical_crossentropy', optimizer='adam',
                       metrics=['accuracy', seq2seqnn.WinAcc,seq2seqnn.WinAcc,seq2seqnn.OutWinAcc,])
 
-        YY = []
-        for y in y_train:
-            YY.append(to_categorical(y))
+        YY = [to_categorical(y) for y in y_train]
         YY = np.asarray(YY)
 
-        YYv = []
-        for yv in y_validation:
-            YYv.append(to_categorical(yv))
+        YYv = [to_categorical(yv) for yv in y_validation]
         YYv = np.asarray(YYv)
 
-        YYt = []
-        for yt in y_test:
-            YYt.append(to_categorical(yt))
+        YYt = [to_categorical(yt) for yt in y_test]
         YYt = np.asarray(YYt)
 
         # checkpoint

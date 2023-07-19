@@ -57,7 +57,7 @@ class Preprocess:
                         #     print(ptime_seq)
                         #     print(len(ptime_seq))
                         ptimes = ' '.join(ptime_seq)
-                        file.write("\"" + str(ptimes) + "\"" + ',' + "\"" + seq + "\"" + "\n")
+                        file.write("\"" + ptimes + "\"" + ',' + "\"" + seq + "\"" + "\n")
         return num_ins
 
     def preprcessingDatawithC(self, txtfile, size):
@@ -94,10 +94,10 @@ class Preprocess:
                         C1 = 0
                         C2 = 0
                         for i in range(0, len(ptime_seq), 2):
-                            file.write(" " + ptime_seq[i] + " " + ptime_seq[i + 1] + " ")
+                            file.write(f" {ptime_seq[i]} {ptime_seq[i + 1]} ")
                             C1 += int(ptime_seq[i])
                             C2 = max(C1 + int(ptime_seq[i + 1]), C2 + int(ptime_seq[i + 1]))
-                            file.write(str(C1) + " " + str(C2))
+                            file.write(f"{C1} {str(C2)}")
                         file.write("\"")
                         # if num_ins < 3:
                         #     print(ptime_seq)
@@ -136,7 +136,7 @@ class Preprocess:
         """
 
         # num_instance = self.preprcessingData(txtfile, size)
-        print("num_instance: " + str(num_instance))
+        print(f"num_instance: {str(num_instance)}")
         num_ins_test = int(num_instance * 0.2)
         num_ins_validation = num_ins_test
         num_ins_train = num_instance - num_ins_test * 2
@@ -194,7 +194,7 @@ class Preprocess:
 
         """
 
-        print("num_instance: " + str(num_instance))
+        print(f"num_instance: {str(num_instance)}")
         num_ins_test = int(num_instance * 0.2)
         num_ins_validation = num_ins_test
         num_ins_train = num_instance - num_ins_test * 2
@@ -252,7 +252,7 @@ class Preprocess:
             y_validation: Validation set which have the binary sequnece that can indicate the window.
         """
 
-        print("num_instance: " + str(num_instance))
+        print(f"num_instance: {str(num_instance)}")
         num_ins_test = int(num_instance * 0.2)
         num_ins_validation = num_ins_test
         num_ins_train = num_instance - num_ins_test * 2
@@ -312,7 +312,7 @@ class Preprocess:
             X_validation: Validation set which have the initial sequence with processing time and completion time.
             y_validation: Validation set which have the binary sequnece that can indicate the window.
         """
-        print("num_instance: " + str(num_instance))
+        print(f"num_instance: {str(num_instance)}")
         num_ins_test = int(num_instance * 0.2)
         num_ins_validation = num_ins_test
         num_ins_train = num_instance - num_ins_test * 2
@@ -370,11 +370,9 @@ class Preprocess:
         """
 
         ptimes = line[0].split(' ')
-        ptimes_list = []
-
-        for k in range(0, len(ptimes), 2):
-            ptimes_list.append([int(ptimes[k]), int(ptimes[k + 1])])
-
+        ptimes_list = [
+            [int(ptimes[k]), int(ptimes[k + 1])] for k in range(0, len(ptimes), 2)
+        ]
         solved_list = list(map(int, line[1]))
 
         np.array(ptimes_list)
@@ -394,12 +392,15 @@ class Preprocess:
         """
         #print(line)
         ptimes = line[0].split(' ')
-        ptimes_list = []
-        # print(ptimes)
-        for k in range(1, len(ptimes), 4):
-            ptimes_list.append(
-                [int(float(ptimes[k])), int(float(ptimes[k + 1])), int(float(ptimes[k + 2])),
-                 int(float(ptimes[k + 3]))])
+        ptimes_list = [
+            [
+                int(float(ptimes[k])),
+                int(float(ptimes[k + 1])),
+                int(float(ptimes[k + 2])),
+                int(float(ptimes[k + 3])),
+            ]
+            for k in range(1, len(ptimes), 4)
+        ]
         solved_list = list(map(int, line[1]))
 
         return ptimes_list, solved_list
